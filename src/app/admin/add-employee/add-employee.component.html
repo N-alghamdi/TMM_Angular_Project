@@ -1,0 +1,122 @@
+<button class="btn btn-primary m-3" routerLink="/admin/homepage">Back</button>
+
+<div class="d-flex justify-content-center mt-2">
+  <div class="card p-3 w-50 m-2 bg-primary-subtle">
+    <h2 class="text-center">Add Employees</h2>
+
+    <form (ngSubmit)="saveEmployee()">
+      <label class="form-text" for="fname">First Name:</label>
+      <input
+        class="form-control"
+        type='text'
+        placeholder="e.g. Nawaf"
+        id="fname"
+        required
+        name="firstName"
+        [(ngModel)]='firstName'
+      >
+      <p class="text-danger fw-bold m-0" *ngIf="firstNameError">
+        {{ firstNameError }}
+      </p>
+
+      <label class="form-text" for="lname">Last Name:</label>
+      <input
+        class="form-control"
+        type='text'
+        placeholder="e.g. Alghamdi"
+        id="lname"
+        required
+        name="lastName"
+        [(ngModel)]='lastName'
+      >
+      <p class="text-danger fw-bold m-0" *ngIf="lastNameError">
+        {{ lastNameError }}
+      </p>
+
+      <label class="form-text" for="jTitle">Job Title:</label>
+      <input
+        class="form-control"
+        type='text'
+        placeholder="e.g. Software Engineer"
+        id="jTitle"
+        required
+        name="jobTitle"
+        [(ngModel)]='jobTitle'
+      >
+      <p class="text-danger fw-bold m-0" *ngIf="jobTitleError">
+        {{ jobTitleError }}
+      </p>
+
+      <label class="form-text" for="exp">Experience:</label>
+      <input
+        class="form-control"
+        type='number'
+        value='0'
+        min="0"
+        id="exp"
+        name="experience"
+        [(ngModel)]='experience'
+      >
+
+      <label class="form-text" for="wSite">Work Site:</label>
+      <select
+        class="form-select"
+        required
+        name="workSite"
+        [(ngModel)]='workSite'
+      >
+        <option selected disabled value="">choose</option>
+        <option>On site</option>
+        <option>Online</option>
+        <option>Hybrid</option>
+      </select>
+      <p class="text-danger fw-bold m-0" *ngIf="workSiteError">
+        {{ workSiteError }}
+      </p>
+
+      <label class="form-text">Availability:</label>
+      <select
+        class="form-select"
+        required
+        name="availability"
+        [(ngModel)]='availability'
+      >
+        <option selected disabled value="">choose</option>
+        <option>Full Time</option>
+        <option>Part Time</option>
+      </select>
+      <p class="text-danger fw-bold m-0" *ngIf="availabilityError">
+        {{ availabilityError }}
+      </p>
+
+      <label class="form-text" for="cv">CV:</label>
+
+      <!-- limit the file picker while the component checks the final file -->
+      <input
+        class="form-control"
+        type="file"
+        id="cv"
+        accept="application/pdf"
+        required
+        name="cv"
+        (change)="onFileSelected($event)"
+      >
+
+      <p class="text-danger mt-1 fw-bold" *ngIf="pdfError">
+        {{ pdfError }}
+      </p>
+
+      <!-- show confirmation only after the server accepts the employee -->
+      <p
+        class="text-success fw-bold text-center fs-5"
+        *ngIf="showSuccessMessage"
+      >
+        Employee Added Successfully
+      </p>
+
+      <div class="text-center pt-2">
+        <input class="btn btn-primary mt-2" type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+</div>

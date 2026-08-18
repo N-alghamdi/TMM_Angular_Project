@@ -1,4 +1,4 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+/* includes the jasmine types and test files used by the test build */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {

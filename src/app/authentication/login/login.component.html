@@ -1,0 +1,56 @@
+<div class="container card text-bg-success p-5 w-50 position-static">
+  <h1 class="text-center mb-4">{{ role === 'admin' ? 'Admin' : 'Client' }} Login</h1>
+
+  <!-- this warning explains why the current role cannot use this login page -->
+  <div *ngIf="wrongRoleMessage" class="alert alert-danger fw-bold">
+    {{ wrongRoleMessage }}
+  </div>
+
+  <!-- the form stays hidden until the user signs out of the other role -->
+  <div *ngIf="!wrongRoleMessage">
+    <div class="form-floating mb-1">
+      <input
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        [(ngModel)]="emailValue"
+      >
+      <label for="floatingInput">Email address</label>
+    </div>
+
+    <!-- the email message stays beside the field that needs attention -->
+    <p class="text-danger fw-bold mb-3" *ngIf="emailError">{{ emailError }}</p>
+
+    <div class="form-floating mb-1">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        [(ngModel)]="passwordValue"
+      >
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <!-- the password message stays beside the field that needs attention -->
+    <p class="text-danger fw-bold mb-3" *ngIf="passwordError">{{ passwordError }}</p>
+
+    <!-- this message explains whether the account or password check failed -->
+    <p class="text-danger fw-bold mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button
+      class="loginBtn btn bg-dark text-light px-5 mt-2"
+      (click)="accountValidation()"
+    >
+      Log In
+    </button>
+
+    <!-- registration is only offered on the client login page -->
+    <p
+      class="btn bg-dark text-light mb-0 mt-3"
+      routerLink="/client/register"
+      *ngIf="role === 'client'"
+    >
+      Not registered yet?
+    </p>
+  </div>
+</div>

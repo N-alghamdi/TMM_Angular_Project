@@ -1,0 +1,13 @@
+/* this space keeps the card away from the top of the page */
+.container {
+  margin-top: 20px;
+}
+
+/* the button uses a compact layout with space above and below */
+.loginBtn {
+  display: flex;
+  width: fit-content;
+  justify-self: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

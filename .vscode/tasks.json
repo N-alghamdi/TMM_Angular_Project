@@ -1,5 +1,5 @@
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  // defines the background tasks used by the browser launch settings
   "version": "2.0.0",
   "tasks": [
     {

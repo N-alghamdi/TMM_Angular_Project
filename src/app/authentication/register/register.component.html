@@ -1,0 +1,54 @@
+<div class="container card text-bg-success p-5 w-50 position-static">
+  <h1 class="text-center mb-4">Client Sign Up</h1>
+
+  <!-- this warning explains why an active admin cannot use client sign up -->
+  <div *ngIf="wrongRoleMessage" class="alert alert-danger fw-bold">
+    {{ wrongRoleMessage }}
+  </div>
+
+  <!-- the form stays hidden until the admin signs out -->
+  <div *ngIf="!wrongRoleMessage">
+    <div class="form-floating mb-1">
+      <input
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        [(ngModel)]="emailValue"
+      >
+      <label for="floatingInput">Email address</label>
+    </div>
+
+    <!-- the email message stays beside the field that needs attention -->
+    <p class="text-danger fw-bold mb-3" *ngIf="emailError">{{ emailError }}</p>
+
+    <div class="form-floating mb-1">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        [(ngModel)]="passwordValue"
+      >
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <!-- the password message stays beside the field that needs attention -->
+    <p class="text-danger fw-bold mb-3" *ngIf="passwordError">{{ passwordError }}</p>
+
+    <!-- this message explains why the account cannot be created -->
+    <p class="text-danger fw-bold mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button
+      class="signUpBtn btn bg-dark text-light px-5 mt-2"
+      (click)="accountValidation()"
+    >
+      Sign Up
+    </button>
+
+    <p
+      class="btn bg-dark text-light mb-0 mt-3"
+      routerLink="/client/login"
+    >
+      Back to login
+    </p>
+  </div>
+</div>

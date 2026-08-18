@@ -1,0 +1,4 @@
+/* let an element use only the width its content needs */
+.fit-content {
+  width: fit-content;
+}

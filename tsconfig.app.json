@@ -1,4 +1,4 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+/* applies the compiler settings needed by the application source */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {

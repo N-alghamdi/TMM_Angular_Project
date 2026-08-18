@@ -1,4 +1,4 @@
-# Editor configuration, see https://editorconfig.org
+# keeps editor formatting consistent across the project
 root = true
 
 [*]

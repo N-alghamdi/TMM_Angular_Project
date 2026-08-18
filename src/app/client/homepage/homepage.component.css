@@ -1,0 +1,5 @@
+/* keep the dashboard actions at a clear width inside the card */
+.buttons-style {
+  width: 50%;
+  align-self: center;
+}

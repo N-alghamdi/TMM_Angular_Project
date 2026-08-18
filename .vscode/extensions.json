@@ -1,4 +1,4 @@
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  // recommends angular template support when the project opens in visual studio code
   "recommendations": ["angular.ng-template"]
 }

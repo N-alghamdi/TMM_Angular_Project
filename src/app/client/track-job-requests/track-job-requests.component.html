@@ -1,0 +1,100 @@
+<button class="btn btn-primary m-3" routerLink="/client/homepage">Back</button>
+
+<h2 class="text-center mb-3">Track Job Requests</h2>
+
+<div class="container d-flex flex-column align-items-center">
+  <!-- choosing a request decides which details appear below -->
+  <div class="w-50 mx-2 mb-4">
+    <label class="form-text fs-5 fw-bold mb-2">Select your Job Request:</label>
+
+    <!-- the template name passes the selected id without another component field -->
+    <select
+      #jobDropdown
+      class="form-select border border-primary"
+      (change)="onJobSelected(jobDropdown.value)"
+    >
+      <option value="">Choose a Job...</option>
+
+      <option *ngFor="let job of clientJobs" [value]="job.id">
+        {{ job.id }} - {{ job.jobTitle }} ({{ job.status }})
+      </option>
+    </select>
+  </div>
+
+  <!-- the job alias avoids repeating selected job in every binding -->
+  <div
+    class="card p-3 bg-primary-subtle w-50 mx-2 mb-5"
+    *ngIf="selectedJob as job"
+  >
+    <p><span class="fw-bolder">Job Title:</span> {{ job.jobTitle }}</p>
+    <p><span class="fw-bolder">Job ID:</span> {{ job.id }}</p>
+    <p>
+      <span class="fw-bolder">Work Type:</span> {{ job.requestedWorkSite }}
+    </p>
+    <p>
+      <span class="fw-bolder">Availability:</span>
+      {{ job.requestedAvailability }}
+    </p>
+    <p><span class="fw-bolder">Status:</span> {{ job.status }}</p>
+
+    <h4 class="fw-bolder mt-4 mb-3 text-center">Assigned Employees</h4>
+
+    <p
+      class="text-danger fw-bold text-center"
+      *ngIf="assignedEmployeesList.length === 0"
+    >
+      No employees assigned yet
+    </p>
+
+    <!-- each assigned employee gets a separate card for clear status controls -->
+    <div *ngFor="let emp of assignedEmployeesList">
+      <div class="card p-3 mb-3 bg-light shadow-sm">
+        <p>
+          <span class="fw-bolder">Name:</span> {{ emp.firstName }}
+          {{ emp.lastName }}
+        </p>
+        <p><span class="fw-bolder">Job Title:</span> {{ emp.jobTitle }}</p>
+        <p>
+          <span class="fw-bolder">Experience:</span> {{ emp.experience }} years
+        </p>
+        <p><span class="fw-bolder">Work Type:</span> {{ emp.workSite }}</p>
+        <p>
+          <span class="fw-bolder">Availability:</span> {{ emp.availability }}
+        </p>
+        <p>
+          <span class="fw-bolder">Approval Status: </span>
+          <span class="text-black">{{ getEmployeeStatus(emp.id) }}</span>
+        </p>
+
+        <!-- keep the missing file message beside the employee that caused it -->
+        <p
+          class="text-danger fw-bold"
+          *ngIf="cvErrorEmployeeId === emp.id"
+        >
+          CV file not found
+        </p>
+
+        <div class="mt-2 d-flex">
+          <button class="btn btn-secondary me-2" (click)="viewCV(emp)">View CV</button>
+
+          <!-- decisions are locked after work starts or the job is done -->
+          <button
+            class="btn btn-success me-2"
+            [disabled]="job.status === 'working' || job.status === 'done'"
+            (click)="changeStatus(emp.id, 'approved')"
+          >
+            Approve
+          </button>
+
+          <button
+            class="btn btn-danger"
+            [disabled]="job.status === 'working' || job.status === 'done'"
+            (click)="changeStatus(emp.id, 'denied')"
+          >
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

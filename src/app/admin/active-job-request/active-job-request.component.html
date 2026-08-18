@@ -1,0 +1,135 @@
+<button class="btn btn-primary m-3" routerLink="/admin/homepage">Back</button>
+
+<h2 class="text-center mb-3">Active Job Requests</h2>
+<!-- show this message when there are no unfinished jobs -->
+<h4 class="text-center text-muted mt-5" *ngIf="!hasActiveJobs()">
+  There are no active job requests currently.
+</h4>
+
+<div class="container d-flex justify-content-center">
+  <!-- show one card for each job that is not complete -->
+  <ng-container *ngFor="let jobInfoCard of jobData">
+    <div
+      class="card p-3 bg-primary-subtle w-50 mx-2"
+      *ngIf="jobInfoCard.status != 'done'"
+    >
+      <p>
+        <span class="fw-bolder">Job Title:</span>
+        {{ jobInfoCard.jobTitle }}
+      </p>
+
+      <p>
+        <span class="fw-bolder">Job Description:</span>
+        {{ jobInfoCard.jobDescription }}
+      </p>
+
+      <p>
+        <span class="fw-bolder">Experience:</span>
+        {{ jobInfoCard.experience }}
+      </p>
+
+      <p>
+        <span class="fw-bolder">Employee Needed:</span>
+        {{ jobInfoCard.numberOfSeats }}
+      </p>
+
+      <p>
+        <span class="fw-bolder">Work Type:</span>
+        {{ jobInfoCard.requestedWorkSite }}
+      </p>
+
+      <p>
+        <span class="fw-bolder">Availability:</span>
+        {{ jobInfoCard.requestedAvailability }}
+      </p>
+
+      <p>
+        <span class="fw-bolder">Assigned Employees:</span>
+
+        <!-- use this function so only ids for existing employees are shown -->
+        <span class="text-muted">
+          {{ getAssignedEmployeeText(jobInfoCard) }}
+        </span>
+      </p>
+
+      <p>
+        <span class="fw-bolder">Status:</span>
+        {{ jobInfoCard.status }}
+      </p>
+
+      <button
+        class="btn btn-primary mb-2"
+        (click)="showAssignDetailes(jobInfoCard)"
+      >
+        Assign
+      </button>
+
+      <!-- keep assignment controls open only for the selected job -->
+      <ng-container *ngIf="selectedJobId == jobInfoCard.id">
+        <div *ngFor="let seat of getSeat(jobInfoCard.numberOfSeats)">
+          <label class="form-text">Seat {{ seat + 1 }}</label>
+          <select class="form-select" [(ngModel)]="selectedSeats[seat]">
+            <option selected value="">Choose</option>
+
+            <!-- store the employee id because assignments are saved by id -->
+            <option
+              *ngFor="let empinfo of employeeData"
+              [value]="empinfo.id"
+              [disabled]="!empinfo.available"
+            >
+              {{ empinfo.firstName }} {{ empinfo.lastName }} |
+              {{ empinfo.jobTitle }} | {{ empinfo.experience }} |
+              {{ empinfo.workSite }} | {{ empinfo.availability }}
+            </option>
+          </select>
+                            <!-- This will show the status of the employee right under the seat dropdown -->
+          <!-- it will check if the statuses array exists and 
+           will make sure that the employee is actually selected (not just the empty "Choose" option) -->
+          <p class="text-muted" *ngIf="jobInfoCard.assignedEmployeeStatuses && selectedSeats[seat] !== ''" style="font-size: 14px; margin-top: 5px; margin-bottom: 15px;">
+            Employee Status: {{ jobInfoCard.assignedEmployeeStatuses[seat] }}
+          </p>
+        </div>
+
+        <button
+          class="btn btn-primary mt-2 mb-2"
+          (click)='SeatErrors(jobInfoCard)'
+        >
+          Save
+        </button>
+
+        <p class="text-danger" *ngIf="displaySeatErrorMsg">
+          Please choose an employee
+        </p>
+        <p class="text-danger" *ngIf="doublicateEmp">
+          cannot choose same employee more than one
+        </p>
+      </ng-container>
+
+      <!-- require every seat to be approved before the job can start -->
+      <button
+        class="btn btn-secondary mb-2"
+        [disabled]="!canStartJob(jobInfoCard)"
+        (click)="startJob(jobInfoCard)"
+      >
+        Start
+      </button>
+
+      <button
+        class="btn btn-success mb-2"
+        [disabled]="jobInfoCard.status !== 'working'"
+        (click)="doneJob(jobInfoCard)"
+      >
+        Done
+      </button>
+
+      <!-- prevent deletion while active work still depends on the job -->
+      <button
+        class="btn btn-danger mb-2"
+        [disabled]="jobInfoCard.status === 'working'"
+        (click)="deleteJob(jobInfoCard)"
+      >
+        Delete
+      </button>
+    </div>
+  </ng-container>
+</div>

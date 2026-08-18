@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // keeps the application name available to the root component
   title = 'TmmJobs';
 }

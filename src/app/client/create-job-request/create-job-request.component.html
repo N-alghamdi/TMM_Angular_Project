@@ -1,0 +1,110 @@
+<button class="btn btn-primary m-3" routerLink="/client/homepage">Back</button>
+
+<div class="d-flex justify-content-center mt-2">
+  <div class="card p-3 w-50 m-2 bg-primary-subtle">
+    <h2 class="text-center">Create Job Request</h2>
+
+    <!-- keep all request details together before checking and saving them -->
+    <form>
+      <label class="form-text" for="jTitle">Job Title:</label>
+      <input
+        class="form-control"
+        type='text'
+        placeholder="e.g. Software Engineer"
+        id="jTitle"
+        required
+        name="jobTitle"
+        [(ngModel)]="jobTitle"
+      >
+      <p class="text-danger fw-bold m-0" *ngIf="jobTitleError">
+        {{ jobTitleError }}
+      </p>
+
+      <label class="form-text" for="jDesc">Job Description:</label>
+
+      <textarea
+        class="form-control"
+        placeholder="e.g. Developing websites for private and public sector companies..."
+        id="jDesc"
+        required
+        name="jDesc"
+        [(ngModel)]="jobDescription"
+      ></textarea>
+
+      <p class="text-danger fw-bold m-0" *ngIf="jobDescriptionError">
+        {{ jobDescriptionError }}
+      </p>
+
+      <label class="form-text" for="exp">Experience:</label>
+      <input
+        class="form-control"
+        type='number'
+        value='0'
+        min="0"
+        id="exp"
+        name="experience"
+        [(ngModel)]="experience"
+      >
+
+      <label class="form-text" for="emp">Employees needed: </label>
+      <input
+        class="form-control"
+        type='number'
+        value="1"
+        min="1"
+        max="5"
+        id="emp"
+        required
+        name="emp"
+        [(ngModel)]="employeesNeeded"
+      >
+
+      <label class="form-text" for="wType">Work Type:</label>
+      <select
+        class="form-select"
+        required
+        name="workType"
+        [(ngModel)]="workType"
+      >
+        <option selected disabled value="">choose</option>
+        <option>On site</option>
+        <option>Online</option>
+        <option>Hybrid</option>
+      </select>
+      <p class="text-danger fw-bold m-0" *ngIf="workTypeError">
+        {{ workTypeError }}
+      </p>
+
+      <label class="form-text">Availability:</label>
+      <select
+        class="form-select"
+        required
+        name="availability"
+        [(ngModel)]="availability"
+      >
+        <option selected disabled value="">choose</option>
+        <option>Full Time</option>
+        <option>Part Time</option>
+      </select>
+      <p class="text-danger fw-bold m-0" *ngIf="availabilityError">
+        {{ availabilityError }}
+      </p>
+
+      <div class="text-center pt-2">
+        <!-- this message appears only after the server saves the request -->
+        <p
+          class="text-success fw-bold text-center fs-5"
+          *ngIf="showSuccessMessage"
+        >
+          Job Request Created Successfully!
+        </p>
+        <input
+          class="btn btn-primary mt-2"
+          type="submit"
+          value="Submit"
+          (click)="saveJob()"
+        >
+      </div>
+    </form>
+  </div>
+</div>

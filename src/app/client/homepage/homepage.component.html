@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center mt-5">
+  <div class="card m-5 text-center p-3 w-50 bg-primary-subtle">
+    <h2 class="mb-3">Client Dashboard</h2>
+
+    <!-- keep the main client actions together on one page -->
+    <p
+      class="btn btn-primary buttons-style"
+      routerLink="/client/homepage/createJobRequest"
+    >
+      Create Job Request
+    </p>
+
+    <p
+      class="btn btn-primary buttons-style"
+      routerLink="/client/homepage/trackJobRequests"
+    >
+      Track Job Requests
+    </p>
+    <p class="btn btn-danger buttons-style" (click)="logout()">Log Out</p>
+  </div>
+</div>

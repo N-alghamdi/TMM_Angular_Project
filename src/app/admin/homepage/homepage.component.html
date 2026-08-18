@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center mt-5">
+  <!-- keep the main admin actions together in one centered card -->
+  <div class="card m-5 text-center p-3 w-50 bg-primary-subtle">
+    <h2 class="mb-3">Admin Dashboard</h2>
+
+    <p
+      class="btn btn-primary buttons-style"
+      routerLink="/admin/homepage/addEmployee"
+    >
+      Add Employees
+    </p>
+
+    <p
+      class="btn btn-primary buttons-style"
+      routerLink="/admin/homepage/activeJobRequest"
+    >
+      Active Job Requests
+    </p>
+
+    <p class="btn btn-danger buttons-style" (click)="logout()">
+      Log Out
+    </p>
+  </div>
+</div>
