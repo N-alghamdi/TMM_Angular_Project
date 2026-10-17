@@ -39,7 +39,6 @@ In short: **Pending → Waiting for approval → Working → Done**.
 - RxJS 7.8
 - Bootstrap 5.3
 - JSON Server 0.17
-- Karma and Jasmine
 
 ## Getting started
 
