@@ -1,4 +1,4 @@
-# TMM Jobs
+# TMM Jobs 
 
 TMM Jobs is an Angular staffing workflow that brings client requests and employee assignments into one simple application. Clients can request staff, follow each request, review assigned employees and their CVs, and approve or reject assignments. Administrators can build the employee pool, match available people to open requests, and manage each job through completion.
 
